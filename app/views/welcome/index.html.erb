@@ -119,19 +119,23 @@
       var end = $("#end-date").val() + " " + $("#end-time").val();
       var st = minCount($("#start-time").val());
 	  var et = minCount($("#end-time").val());
-	  $.ajax({
-	      type: "POST",
-	      url: "/listing/search",
-	      data: { listing: { time_start: st, time_end: et, listing_start: start, listing_end: end } },
-		  success: function(data) {
-		  	reshours = (et - st)/60;
-		  	var amount = reshours * data['price_per_hour'];
-		  	parkingAvailable(start, end, amount)
-		  },
-		  error: function(req, err){ 
-		  	parkingNotAvailable(start, end) 
-		  }
-	  })
+	  if(st >= et){
+	    	alert("Error, your end time must be greater than start time");
+/* 	    	realized that the calendar input is will result in errors as you can submit for different start and end dates... may want to look at that later, for now I simply limited the alert to same day time input.  */
+	  } else {
+		  $.ajax({
+		      type: "POST",
+		      url: "/listing/search",
+		      data: { listing: { time_start: st, time_end: et, listing_start: start, listing_end: end } },
+			  success: function(data) {
+			  	reshours = (et - st)/60;
+			  	var amount = reshours * data['price_per_hour'];
+			  	parkingAvailable(start, end, amount)
+			  },
+			  error: function(req, err){ 
+			  	parkingNotAvailable(start, end) 
+			  }
+		  })
       /* Replace this with real logic, or just submit the form */
 /*
       if (Math.floor((Math.random() * 2))) {
@@ -140,6 +144,7 @@
         parkingAvailable(start, end, Math.floor((Math.random() * 25) + 1));
       }
 */
+	  }
     }
 
     function parkingNotAvailable(start, end) {
