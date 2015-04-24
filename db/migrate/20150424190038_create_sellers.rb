@@ -5,5 +5,7 @@ class CreateSellers < ActiveRecord::Migration
       
       t.timestamps
     end
+    
+    add_reference :locations, :seller, index: true
   end
 end

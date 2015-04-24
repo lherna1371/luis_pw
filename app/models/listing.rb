@@ -1,6 +1,8 @@
 class Listing < ActiveRecord::Base
   has_many :bookings
-
+  belongs_to :location
+  
+  
   def self.booking_listing(start_time, end_time)
   	hour_count = (end_time - start_time)/60 
   	Listing.where("min_parking_hours <= ? AND available >= ? AND active = ?", hour_count, 1, true).order("price_per_hour asc")

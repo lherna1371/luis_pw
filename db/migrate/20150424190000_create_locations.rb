@@ -7,5 +7,7 @@ class CreateLocations < ActiveRecord::Migration
     
 	  t.timestamps 
     end
+    
+    add_reference :listings, :location, index: true
   end
 end
