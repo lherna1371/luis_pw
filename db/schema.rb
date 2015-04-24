@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150106194614) do
+ActiveRecord::Schema.define(version: 20150424190038) do
 
   create_table "bookings", force: true do |t|
     t.string   "customer_name"
@@ -34,6 +34,26 @@ ActiveRecord::Schema.define(version: 20150106194614) do
     t.boolean  "active"
     t.integer  "min_parking_hours"
     t.decimal  "price_per_hour"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "location_id"
+  end
+
+  add_index "listings", ["location_id"], name: "index_listings_on_location_id"
+
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "seller_id"
+  end
+
+  add_index "locations", ["seller_id"], name: "index_locations_on_seller_id"
+
+  create_table "sellers", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
