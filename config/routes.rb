@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     post 'search', to: 'listing#search', as: :listing_search
   end
 
+  resources :booking
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
