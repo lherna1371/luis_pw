@@ -77,7 +77,9 @@
         <p>Parking is available from <span class="quote-start"></span> to <span class="quote-end"></span> for <strong>$<span class="quote-amount"></span></strong>.</p>
       </div>
       <div class="three columns">
-        <input type="submit" class="button-primary" value="Book now">
+      	<form class="button-primary" action="http://diywpblog.com/" method="get">
+        	<button>Book Now</button>
+        </form>
       </div>
     </div>
 
@@ -130,7 +132,7 @@
 			  success: function(data) {
 			  	reshours = (et - st)/60;
 			  	var amount = reshours * data['price_per_hour'];
-			  	parkingAvailable(start, end, amount)
+			  	parkingAvailable(start, end, amount, data['id'])
 			  },
 			  error: function(req, err){ 
 			  	parkingNotAvailable(start, end) 
@@ -153,12 +155,13 @@
       $("#parking-available").hide();
       $("#parking-not-available").show();
     }
-    function parkingAvailable(start, end, amount) {
+    function parkingAvailable(start, end, amount, id) {
       $(".quote-start").html(start);
       $(".quote-end").html(end);
       $(".quote-amount").html(amount);
       $("#parking-available").show();
       $("#parking-not-available").hide();
+      $(".button-primary").attr("action", "/booking/new/" + id);
     }
     
 	function minCount(time){
